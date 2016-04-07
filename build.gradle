@@ -1,0 +1,89 @@
+allprojects  {
+  apply plugin: 'com.github.kt3k.coveralls'
+  apply plugin: 'java'
+  apply plugin: 'jacoco'
+  apply plugin: 'eclipse'
+  
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  group = 'com.project'
+  version = '1.0'
+  
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+  }
+}
+
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+  }
+}
+
+subprojects {  
+  def coverageSourceDirs = [
+    'src/main/java'
+  ]
+
+  jacocoTestReport {
+    additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(sourceSets.main.output)
+        
+    reports {
+        csv.enabled false
+        html{
+          enabled true
+          destination "${buildDir}/reports/jacoco"
+        }
+        xml.enabled false
+     }
+  }
+  
+  test {
+    useTestNG()
+  }
+ 
+  test.finalizedBy(project.tasks.jacocoTestReport)
+}
+
+task testReport(type: TestReport, group: 'Build') {
+  destinationDir = file("${buildDir}/reports/allTests")
+}
+
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+  dependsOn = subprojects.test
+
+  additionalSourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs)
+  sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+  classDirectories = files(subprojects.sourceSets.main.output)
+  executionData = files(subprojects.jacocoTestReport.executionData)
+
+  reports {
+    html.enabled = true
+    xml.enabled = true
+  }
+
+  doFirst {
+    executionData = files(executionData.findAll { it.exists() })
+  }
+}
+
+coveralls {
+  sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
+  jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+}
+
+tasks.coveralls {
+  dependsOn jacocoRootReport
+  onlyIf { System.env.'CI' }
+}

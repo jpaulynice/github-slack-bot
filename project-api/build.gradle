@@ -1,0 +1,23 @@
+apply plugin: 'war'
+
+dependencies {
+    compile project(':project-service')
+    
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'org.glassfish.jersey.core:jersey-client:2.22.2'
+    compile ('org.glassfish.jersey.ext:jersey-spring3:2.22.2'){
+        exclude(module: 'spring-aop')
+        exclude(module: 'spring-tx')
+        exclude(module: 'spring-web')
+    }
+    compile('org.glassfish.jersey.media:jersey-media-json-jackson:2.22.2') {
+        exclude group: 'org.codehaus.jackson'
+    }
+    
+    testCompile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.22.2'
+    testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.2'
+    testCompile 'org.glassfish.jersey.containers:jersey-container-servlet:2.22.2'
+    testCompile 'org.glassfish.jersey.test-framework:jersey-test-framework-core:2.22.2'
+    testCompile 'org.springframework:spring-test:4.2.5.RELEASE'
+    testCompile 'org.testng:testng:6.9.4'  
+}
