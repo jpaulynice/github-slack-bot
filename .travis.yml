@@ -1,11 +1,9 @@
 language: java
-script: ./gradlew build jacocoTestReport --info
-before_install:
-  - chmod +x gradlew
+script: gradle clean build jacocoTestReport
 jdk:
   - oraclejdk8
 env:
   matrix:
   - TERM=dumb
 after_success:
-  - ./gradlew jacocoRootReport coveralls
+  - gradle jacocoRootReport coveralls
