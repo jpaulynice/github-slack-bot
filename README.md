@@ -1,6 +1,6 @@
 # events-scheduler
 [![Build Status](https://travis-ci.org/julesbond007/events-scheduler.svg?branch=master)](https://travis-ci.org/julesbond007/events-scheduler)
-[![Coverage Status](https://coveralls.io/repos/github/julesbond007/events-scheduler/badge.svg?branch=master)](https://coveralls.io/github/julesbond007/proj?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/julesbond007/events-scheduler/badge.svg?branch=master)](https://coveralls.io/github/julesbond007/events-scheduler?branch=master)
 
 Scheduled service to fetch events from github and publish them to slack using producer/consumer pattern.  If an event fails to process, the application will send an email notification.
 
