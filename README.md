@@ -5,7 +5,7 @@
 Scheduled service to fetch events from github and publish them to slack using producer/consumer pattern.  If an event fails to process, the application will send an email notification.
 
 #Running
-0. Update [config.properties](https://github.com/julesbond007/event-scheduler/blob/master/project-service/src/main/resources/config.properties) to have correct slack token/channel & github login/password (optional for rate control)
+0. Update [config.properties](https://github.com/julesbond007/events-scheduler/blob/master/project-service/src/main/resources/config.properties) to have correct slack token/channel & github login/password (optional for rate control)
 1. To build the project:
   <p>if gradle is installed do `gradle clean build`</p>
   <p>otherwise `chmod +x gradlew` then `./gradlew clean build`</p>
