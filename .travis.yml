@@ -1,5 +1,5 @@
 language: java
-script: gradle clean build jacocoTestReport
+script: gradle clean build jacocoTestReport --info
 jdk:
   - oraclejdk8
 env:
