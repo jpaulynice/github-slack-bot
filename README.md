@@ -6,7 +6,7 @@ Scheduled service to fetch events from github repositories and publish them to s
 
 ![Settings Window](https://raw.githubusercontent.com/julesbond007/events-scheduler/master/docs/producer-consumer.png)
 
-If an event fails to process, the application will send an email notification.
+If an event fails to process, the application sends an email notification.
 
 #Running
 1. Update [config.properties](https://github.com/julesbond007/events-scheduler/blob/master/project-service/src/main/resources/config.properties) to have correct slack token/channel & github login/password (optional for rate control)
