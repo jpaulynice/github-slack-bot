@@ -2,10 +2,11 @@
 [![Build Status](https://travis-ci.org/julesbond007/events-scheduler.svg?branch=master)](https://travis-ci.org/julesbond007/events-scheduler)
 [![Coverage Status](https://coveralls.io/repos/github/julesbond007/events-scheduler/badge.svg?branch=master)](https://coveralls.io/github/julesbond007/events-scheduler?branch=master)
 
-Scheduled service to fetch events from github and publish them to slack using producer/consumer pattern.  If an event fails to process, the application will send an email notification.
+Scheduled service to fetch events from github repositories and publish them to slack using producer/consumer pattern.
 
 ![Settings Window](https://raw.githubusercontent.com/julesbond007/events-scheduler/master/docs/producer-consumer.png)
 
+If an event fails to process, the application will send an email notification.
 
 #Running
 1. Update [config.properties](https://github.com/julesbond007/events-scheduler/blob/master/project-service/src/main/resources/config.properties) to have correct slack token/channel & github login/password (optional for rate control)
