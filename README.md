@@ -4,6 +4,9 @@
 
 Scheduled service to fetch events from github and publish them to slack using producer/consumer pattern.  If an event fails to process, the application will send an email notification.
 
+![Settings Window](https://raw.githubusercontent.com/julesbond007/events-scheduler/master/docs/producer-consumer.png)
+
+
 #Running
 1. Update [config.properties](https://github.com/julesbond007/events-scheduler/blob/master/project-service/src/main/resources/config.properties) to have correct slack token/channel & github login/password (optional for rate control)
 2. To build the project:
