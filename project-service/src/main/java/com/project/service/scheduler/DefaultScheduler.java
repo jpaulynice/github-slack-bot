@@ -51,24 +51,19 @@ public class DefaultScheduler implements Scheduler {
             throw new IllegalActionException("the task is already running.");
         }
         producerExecutor = Executors.newSingleThreadScheduledExecutor();
-        future = producerExecutor.scheduleAtFixedRate(producer(), delay,
-                frequency, TimeUnit.MINUTES);
-        log.debug("task scheduled to run every {} minutes and"
-                + " an initial delay {} minutes", frequency, delay);
+        future = producerExecutor.scheduleAtFixedRate(producer(), delay, frequency, TimeUnit.MINUTES);
+        log.debug("task scheduled to run every {} minutes and an initial delay {} minutes", frequency, delay);
         running = true;
     }
 
     private Runnable producer() {
-        final RejectedExecutionHandler rejHandler = (final Runnable r,
-                final ThreadPoolExecutor e) -> {
+        final RejectedExecutionHandler rejHandler = (final Runnable r, final ThreadPoolExecutor e) -> {
             emailService.send("slack event");
         };
 
-        final BlockingQueue<Runnable> workers = new LinkedBlockingQueue<>(
-                THREADS);
+        final BlockingQueue<Runnable> workers = new LinkedBlockingQueue<>(THREADS);
 
-        final ExecutorService executor = new ThreadPoolExecutor(CORE_POOL_SIZE,
-                MAX_POOL_SIZE, KEE_ALIVE, TimeUnit.SECONDS, workers, rejHandler);
+        final ExecutorService executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, KEE_ALIVE, TimeUnit.SECONDS, workers, rejHandler);
         final GithubEventFetcher producer = prototypeFactory.getObject();
         producer.setConsumerExecutor(executor);
 
